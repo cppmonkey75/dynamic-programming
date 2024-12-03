@@ -18,8 +18,21 @@ int fib_recursion(int n){
     return fib_recursion(n-1)+fib_recursion(n-2);
 }
 
-int main(){
 
+template <int n>
+struct fib_tmp{
+  static const int value=fib_tmp<n-1>::value +fib_tmp<n-2>::value;
+};
+template <>
+struct fib_tmp<1>{
+    static const int value=1;
+};
+template <>
+struct fib_tmp<0>{
+    static const int value=0;
+};
+int main(){
+    cout<<fib_tmp<20>::value<<endl;
     cout<<fib_dp(20)<<endl;
     cout<<fib_recursion(20)<<endl;
 }
